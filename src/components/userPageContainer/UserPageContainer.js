@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import styles from './UserPage.module.css'
 import {useNavigate, useParams} from 'react-router-dom';
 import Loader from '../common/loader/Loader';
+import UserPage from './userPage/userPage';
 
-const UserPage = () => {
+const UserPageContainer = () => {
 
 	const params = useParams()
 	const navigate = useNavigate()
@@ -14,38 +14,34 @@ const UserPage = () => {
 	const getUser = async (username) => {
 		const response = await fetch(` https://api.github.com/users/${username}`)
 		if (!response.ok) {
-			const state = await response.json()
-			navigate('/error', {state: {...state}})
-			return
+			throw await response.json()
 		}
-		return await response.json()
+		const user = await response.json()
+		setUser(user)
+		return user
 	}
 
-	const getRepos = async (user) => {
-		const response = await fetch(` https://api.github.com/users/${user.login}/repos`)
+	const getRepos = async (username, page = 1) => {
+		setRepos(null)
+		const response = await fetch(` https://api.github.com/users/${username}/repos?page=${page}&per_page=4`)
 		const repos = await response.json()
-		setUser(user)
 		setRepos(repos)
-		return {user, repos}
+		return repos
 	}
 
 	useEffect(() => {
 		getUser(params.userId)
-			.then(user => getRepos(user))
-	}, [])
-
-	console.log(user, repos)
+			.catch(e => {
+				navigate('/error-page', {state: {...e}})
+				return {}
+			}).then(user => getRepos(user.login))
+	}, [params.userId])
 
 	return (
 		user
-			? <div>
-				user here
-			</div>
+			? <UserPage user={user} repos={repos} getRepos={getRepos} setRepos={setRepos}/>
 			: <Loader/>
 	)
 }
 
-export default UserPage
-
-
-//TODO add throw error behavior
+export default UserPageContainer

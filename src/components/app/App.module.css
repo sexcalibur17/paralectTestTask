@@ -1,0 +1,35 @@
+.app{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #E5E5E5;
+}
+
+.container{
+    max-width: 1366px;
+    margin: 0 auto;
+}
+
+.header__wrapper{
+    background-color: #0064EB;
+}
+
+.header{
+    height: 72px;
+    padding: 0 41px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .header{
+        justify-content: center;
+    }
+}
+
+.content__wrapper{
+    min-height: calc(100vh - 72px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,18 @@
+.error_page__item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item__picture{
+    width: 65px;
+    height: 75px;
+    margin-bottom: 42px;
+}
+
+.item__title{
+    font-size: 22px;
+    line-height: 31px;
+    letter-spacing: 0;
+    text-align: center;
+}

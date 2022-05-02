@@ -1,0 +1,16 @@
+.index_page__item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 210px;
+}
+.item__picture{
+    width: 65px;
+    margin-bottom: 47px;
+}
+.item__title{
+    font-size: 22px;
+    line-height: 31px;
+    text-align: center;
+    letter-spacing: 0;
+}
