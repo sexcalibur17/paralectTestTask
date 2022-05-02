@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import Loader from '../common/loader/Loader';
 import UserPage from './userPage/userPage';
@@ -21,13 +21,13 @@ const UserPageContainer = () => {
 		return user
 	}
 
-	const getRepos = async (username, page = 1) => {
+	const getRepos = useCallback( async (username, page = 1)=>{
 		setRepos(null)
 		const response = await fetch(` https://api.github.com/users/${username}/repos?page=${page}&per_page=4`)
 		const repos = await response.json()
 		setRepos(repos)
 		return repos
-	}
+	}, [])
 
 	useEffect(() => {
 		getUser(params.userId)
@@ -35,7 +35,7 @@ const UserPageContainer = () => {
 				navigate('/error-page', {state: {...e}})
 				return {}
 			}).then(user => getRepos(user.login))
-	}, [params.userId, navigate])
+	}, [params.userId, navigate, getRepos])
 
 	return (
 		user

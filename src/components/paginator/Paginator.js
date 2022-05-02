@@ -1,40 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import styles from './Paginator.module.css'
 import {getPagination} from '../../utils/paginatorUtils';
 
 const Paginator = (props) => {
+
 	const {qty, getRepos, username} = props
 	const [currentPage, setCurrentPage] = useState(1)
-	const [pageAmount, setPageAmount] = useState(Math.ceil(qty / 4))
-	const [pages, setPages] = useState(getPagination(pageAmount, currentPage))
+	const [pageAmount, setPageAmount] = useState(0)
+	const [pages, setPages] = useState([])
 
-	useEffect(() => {
+	useLayoutEffect(()=>{
 		setPageAmount(Math.ceil(qty / 4))
-	}, [qty])
-
+	},[qty])
 
 	useEffect(()=>{
-		if(pages.indexOf(currentPage)===pages.length-1 || pages.indexOf(currentPage)<0){
+		getRepos(username,currentPage)
+		if((pages.indexOf(currentPage)===pages.length-1&&currentPage!==pageAmount) || pages.indexOf(currentPage)<0){
 			setPages(getPagination(pageAmount, currentPage))
 		}
-	}, [currentPage, pageAmount, pages, username])
+	}, [pages, getRepos, username, currentPage, pageAmount])
 
 	const goBack = () => {
 		if (currentPage > 1) {
 			setCurrentPage(prevState => prevState - 1)
-			getRepos(username, currentPage-1)
 		}
 	}
 
 	const goForward = () => {
 		if (currentPage < pageAmount) {
 			setCurrentPage(prevState => prevState + 1)
-			getRepos(username, currentPage+1)
 		}
 	}
 
 	const changeCurrentPage = (pageNumber) => {
-		getRepos(username, pageNumber)
 		setCurrentPage(pageNumber)
 	}
 
@@ -59,7 +57,7 @@ const Paginator = (props) => {
 			{ (pageAmount > 5 && pages.length < 5) &&
 				<>
 					<span>...</span>
-					<button onClick={()=>setCurrentPage(pageAmount)}
+					<button onClick={()=>changeCurrentPage(pageAmount)}
 							className={styles.paginator__button}>
 						{pageAmount}
 					</button>
