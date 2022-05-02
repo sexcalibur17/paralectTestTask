@@ -13,13 +13,17 @@
     align-items: center;
     margin-top: auto;
 }
+@media (max-width: 768px) {
+    .paginator__wrapper{
+        align-self: center;
+    }
+}
 
 .paginator__amount{
     display: block;
     font-size: 14px;
     font-weight: 400;
     line-height: 21px;
-    width: 142px;
 }
 
 

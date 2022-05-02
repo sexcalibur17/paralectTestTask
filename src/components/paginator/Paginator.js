@@ -9,16 +9,18 @@ const Paginator = (props) => {
 	const [pageAmount, setPageAmount] = useState(0)
 	const [pages, setPages] = useState([])
 
-	useLayoutEffect(()=>{
+	useLayoutEffect(() => {
 		setPageAmount(Math.ceil(qty / 4))
-	},[qty])
+	}, [qty])
 
-	useEffect(()=>{
-		getRepos(username,currentPage)
-		if((pages.indexOf(currentPage)===pages.length-1&&currentPage!==pageAmount) || pages.indexOf(currentPage)<0){
+	useEffect(() => {
+		getRepos(username, currentPage)
+		if ((pages.indexOf(currentPage) === pages.length - 1 && currentPage !== pageAmount)
+			|| pages.indexOf(currentPage) < 0) {
 			setPages(getPagination(pageAmount, currentPage))
 		}
 	}, [pages, getRepos, username, currentPage, pageAmount])
+
 
 	const goBack = () => {
 		if (currentPage > 1) {
@@ -52,16 +54,18 @@ const Paginator = (props) => {
 					: styles.paginator__button}
 							   onClick={() => {
 								   changeCurrentPage(el);
-							   }}>{el}</button>
+							   }}>
+					{el}
+				</button>
 			})}
-			{ (pageAmount > 5 && pages.length < 5) &&
-				<>
-					<span>...</span>
-					<button onClick={()=>changeCurrentPage(pageAmount)}
-							className={styles.paginator__button}>
-						{pageAmount}
-					</button>
-				</>
+			{(pageAmount > 5 && pages.length < 5) &&
+			<>
+				<span>...</span>
+				<button onClick={() => changeCurrentPage(pageAmount)}
+						className={styles.paginator__button}>
+					{pageAmount}
+				</button>
+			</>
 			}
 			<button disabled={currentPage === pageAmount}
 					className={`${styles.paginator__button} ${styles.paginator__button_direction}`}

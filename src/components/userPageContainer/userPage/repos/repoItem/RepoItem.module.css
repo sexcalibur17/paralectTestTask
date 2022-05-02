@@ -5,6 +5,7 @@
     flex-direction: column;
     padding: 24px 32px;
     row-gap: 16px;
+    white-space: nowrap;
 }
 
 .repo__link{
@@ -15,10 +16,10 @@
 }
 
 .repo__description{
+    flex: 1 1 auto;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
     font-weight: 400;
     line-height: 19px;
-    letter-spacing: 0;
 }
