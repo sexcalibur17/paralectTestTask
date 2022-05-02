@@ -24,9 +24,10 @@ const UserPage = ({user, repos, getRepos, setRepos}) => {
 	return (
 		<div className={styles.user_page__wrapper}>
 			<div className={styles.user__info}>
-				<img src={user.avatar_url} className={styles.info__img} alt="user picture"/>
+				<img src={user.avatar_url} className={styles.info__img} alt="user"/>
 				<span className={styles.info__name}>{user.name}</span>
 				<a href={user.html_url} target="_blank"
+				   rel="noreferrer"
 				   className={styles.info__link_profile}>
 					{user.login}
 				</a>

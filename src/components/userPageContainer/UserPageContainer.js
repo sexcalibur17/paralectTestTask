@@ -35,7 +35,7 @@ const UserPageContainer = () => {
 				navigate('/error-page', {state: {...e}})
 				return {}
 			}).then(user => getRepos(user.login))
-	}, [params.userId])
+	}, [params.userId, navigate])
 
 	return (
 		user
