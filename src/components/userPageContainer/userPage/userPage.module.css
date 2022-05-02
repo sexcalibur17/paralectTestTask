@@ -8,14 +8,14 @@
 }
 
 @media (max-width: 768px) {
-    .user_page_wrapper {
+    .user_page__wrapper {
         flex-direction: column;
         row-gap: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .user_page_wrapper {
+    .user_page__wrapper {
         padding: 39px 26px 28px 27px;
     }
 }
